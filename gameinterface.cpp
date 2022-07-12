@@ -5,6 +5,7 @@ GameInterface::GameInterface(QWidget *parent)
 {
     common_layout = new QVBoxLayout(this);
     maps_layout = new QBoxLayout(QBoxLayout::TopToBottom, this);
+    maps_layout->addWidget(plwidget);
     buttons_layout = new QHBoxLayout(this);
 
     QVector<QString> text_for_button(std::initializer_list<QString>{QString("6 Ducks to 1 Goat"),
@@ -26,12 +27,10 @@ GameInterface::GameInterface(QWidget *parent)
         buttons_layout->addWidget(button);
         connect(button, &QPushButton::clicked, this, method_ptr.at(i));
     }
-
-    maps_layout->addWidget(plwidget);
     common_layout->addLayout(maps_layout);
     common_layout->addLayout(buttons_layout);
 
-    //setLayout(common_layout);
+    setLayout(common_layout);
 }
 GameInterface::~GameInterface()
 {
