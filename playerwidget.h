@@ -11,7 +11,7 @@ class PlayerWidget : public QWidget
     Q_OBJECT
     //Player* player;
     QLabel* label;
-    QBoxLayout* layout;
+    QBoxLayout* map_layout;
 public:
     explicit PlayerWidget(QWidget *parent = nullptr);
 
