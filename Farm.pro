@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    exchangebutton.cpp \
     game.cpp \
     main.cpp \
     gameinterface.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
 HEADERS += \
     actionEnum.h \
     animalEnum.h \
+    exchangebutton.h \
     game.h \
     gameinterface.h \
     player.h \
