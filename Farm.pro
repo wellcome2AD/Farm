@@ -12,14 +12,16 @@ SOURCES += \
     game.cpp \
     main.cpp \
     gameinterface.cpp \
-    player.cpp
+    player.cpp \
+    playerwidget.cpp
 
 HEADERS += \
     actionEnum.h \
     animalEnum.h \
     game.h \
     gameinterface.h \
-    player.h
+    player.h \
+    playerwidget.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
