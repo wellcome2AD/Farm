@@ -143,39 +143,41 @@ bool Player::FirstStage()
 }
 bool Player::Exchange(actionEnum action)
 {
+    bool result = false;
     switch (action)
     {
     case changeDucksToGoat:
     {
-        DucksToGoat();
+        result = DucksToGoat();
         break;
     }
     case changeGoatsToPig:
     {
-        GoatsToPig();
+        result = GoatsToPig();
         break;
     }
     case changePigsToHorse:
     {
-        PigsToHorse();
+        result = PigsToHorse();
         break;
     }
     case changeHorsesToCow:
     {
-        HorsesToCow();
+        result = HorsesToCow();
         break;
     }
     case changeGoatToDog:
     {
-        GoatToDog();
+        result = GoatToDog();
         break;
     }
     case changeHorseToDog:
     {
-        HorseToDog();
+        result = HorseToDog();
         break;
     }
     }
+    return result;
 }
 bool Player::Win()
 {
