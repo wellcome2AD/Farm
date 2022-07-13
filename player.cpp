@@ -1,4 +1,5 @@
 #include <QRandomGenerator>
+#include <QDebug>
 #include "player.h"
 Player::Player()
 {
@@ -199,7 +200,7 @@ int Player::GetHorses() const
 {
     return animals[horse];
 }
-int Player::GetCows()   const
+int Player::GetCows() const
 {
     return animals[cow];
 }
