@@ -7,7 +7,7 @@ class ExchangeButton : public QPushButton
 {
     Q_OBJECT
 public:
-    ExchangeButton(const QString& text, QWidget* parent = nullptr);
+    ExchangeButton(const QIcon &icon, const QString& text, QWidget* parent = nullptr);
 };
 
 #endif // EXCHANGEBUTTON_H
