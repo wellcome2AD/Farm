@@ -10,6 +10,8 @@ class Game
     Player* players;
 public:
     Game(int number_of_players);
+    int GetOrder();
+    Player* GetCurrentPlayer() const;
 };
 
 #endif // GAME_H
