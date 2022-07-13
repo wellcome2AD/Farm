@@ -1,16 +1,17 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <QVector>
 #include "player.h"
 
 class Game
 {
     int number_of_players;
-    int order = 1;
-    Player* players;
+    size_t order = 0;
+    QVector<Player*> players;
 public:
     Game(int number_of_players);
-    int GetOrder();
+    size_t GetOrder();
     Player* GetCurrentPlayer() const;
 };
 
