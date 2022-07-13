@@ -2,8 +2,6 @@
 #define GAMEINTERFACE_H
 
 #include <QWidget>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
 #include "exchangebutton.h"
 #include "game.h"
 #include "playerwidget.h"

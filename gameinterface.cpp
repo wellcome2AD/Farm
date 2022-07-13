@@ -1,13 +1,22 @@
+#include <QPainter>
+#include <QDebug>
 #include "gameinterface.h"
 
 GameInterface::GameInterface(QWidget *parent)
-    : QWidget(parent), game(2), plwidget(new PlayerWidget(this))
+    : QWidget       (parent),
+      game          (2),
+      plwidget      (new PlayerWidget(this)),
+      common_layout (new QVBoxLayout(this)),
+      maps_layout   (new QBoxLayout(QBoxLayout::TopToBottom, this)),
+      buttons_layout(new QHBoxLayout(this))
 {
-    common_layout = new QVBoxLayout(this);
-    maps_layout = new QBoxLayout(QBoxLayout::TopToBottom, this);
-    maps_layout->addWidget(plwidget);
-    buttons_layout = new QHBoxLayout(this);
-
+    QPixmap image = QPixmap("D:\\QtProjects\\Farm\\exchange1");
+    QVector<QIcon> icon_for_button({image.scaled(QSize(300, 200), Qt::AspectRatioMode::KeepAspectRatio),
+                                      QPixmap("D:\\QtProjects\\Farm\\exchange2"),
+                                      QPixmap("D:\\QtProjects\\Farm\\exchange3"),
+                                      QPixmap("D:\\QtProjects\\Farm\\exchange4"),
+                                      QPixmap("D:\\QtProjects\\Farm\\exchange5"),
+                                      QPixmap("D:\\QtProjects\\Farm\\exchange6")});
     QVector<QString> text_for_button(std::initializer_list<QString>{QString("6 Ducks to 1 Goat"),
                                                                     QString("2 Goat to 1 Pig"),
                                                                     QString("3 Pig to 1 Horse"),
@@ -23,39 +32,98 @@ GameInterface::GameInterface(QWidget *parent)
                                                     &GameInterface::onExchange6ButtonClicked};
     for(int i=0; i<text_for_button.size(); ++i)
     {
-        auto button = new ExchangeButton(text_for_button.at(i), this);
+        auto button = new ExchangeButton(icon_for_button.at(i), text_for_button.at(i), this);
         buttons_layout->addWidget(button);
         connect(button, &QPushButton::clicked, this, method_ptr.at(i));
     }
+    maps_layout->addWidget(plwidget);
+    qDebug() << plwidget->size();
+
     common_layout->addLayout(maps_layout);
     common_layout->addLayout(buttons_layout);
-
     setLayout(common_layout);
+    qDebug() << plwidget->size();
 }
 GameInterface::~GameInterface()
 {
 }
+/*bool GameInterface::eventFilter(QObject* object, QEvent* event)
+{
+    if (exch_button == object && event->type() == QEvent::Resize) {
+    qDebug() << "button was resized!";
+    pushButton->setIconSize( QSize( pushButton->size().width(),
+    pushButton->size().height() ));
+}*/
 void GameInterface::onExchange1ButtonClicked()
 {
-
+    Player* currentPlayer = game.GetCurrentPlayer();
+    int order = game.GetOrder() - 1;
+    bool result = currentPlayer->Exchange(changeDucksToGoat);
+    QLayoutItem* item = maps_layout->takeAt(order);
+    PlayerWidget* widget = (PlayerWidget*)item;
+    if(result)
+    {
+        repaint(0, 0, widget->width(), widget->height());
+    }
 }
 void GameInterface::onExchange2ButtonClicked()
 {
-
+    Player* currentPlayer = game.GetCurrentPlayer();
+    int order = game.GetOrder() - 1;
+    bool result = currentPlayer->Exchange(changeGoatsToPig);
+    QLayoutItem* item = maps_layout->takeAt(order);
+    PlayerWidget* widget = (PlayerWidget*)item;
+    if(result)
+    {
+        repaint(0, 0, widget->width(), widget->height());
+    }
 }
 void GameInterface::onExchange3ButtonClicked()
 {
-
+    Player* currentPlayer = game.GetCurrentPlayer();
+    int order = game.GetOrder() - 1;
+    bool result = currentPlayer->Exchange(changePigsToHorse);
+    QLayoutItem* item = maps_layout->takeAt(order);
+    PlayerWidget* widget = (PlayerWidget*)item;
+    if(result)
+    {
+        repaint(0, 0, widget->width(), widget->height());
+    }
 }
 void GameInterface::onExchange4ButtonClicked()
 {
-
+    Player* currentPlayer = game.GetCurrentPlayer();
+    int order = game.GetOrder() - 1;
+    bool result = currentPlayer->Exchange(changeHorsesToCow);
+    QLayoutItem* item = maps_layout->takeAt(order);
+    PlayerWidget* widget = (PlayerWidget*)item;
+    if(result)
+    {
+        repaint(0, 0, widget->width(), widget->height());
+    }
 }
 void GameInterface::onExchange5ButtonClicked()
 {
-
+    Player* currentPlayer = game.GetCurrentPlayer();
+    int order = game.GetOrder() - 1;
+    bool result = currentPlayer->Exchange(changeGoatToDog);
+    QLayoutItem* item = maps_layout->takeAt(order);
+    PlayerWidget* widget = (PlayerWidget*)item;
+    if(result)
+    {
+        repaint(0, 0, widget->width(), widget->height());
+    }
 }
 void GameInterface::onExchange6ButtonClicked()
 {
+    Player* currentPlayer = game.GetCurrentPlayer();
+    int order = game.GetOrder() - 1;
+    bool result = currentPlayer->Exchange(changeHorseToDog);
+    QLayoutItem* item = maps_layout->takeAt(order);
+    PlayerWidget* widget = (PlayerWidget*)item;
+    if(result)
+    {
+        repaint(0, 0, widget->width(), widget->height());
+    }
 
 }
