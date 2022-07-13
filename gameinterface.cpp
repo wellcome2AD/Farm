@@ -5,10 +5,9 @@
 GameInterface::GameInterface(QWidget *parent)
     : QWidget       (parent),
       game          (2),
-      plwidget      (new PlayerWidget(this)),
       common_layout (new QVBoxLayout(this)),
-      maps_layout   (new QBoxLayout(QBoxLayout::TopToBottom, this)),
-      buttons_layout(new QHBoxLayout(this))
+      maps_layout   (new QGridLayout),
+      buttons_layout(new QHBoxLayout)
 {
     QPixmap image = QPixmap("D:\\QtProjects\\Farm\\exchange1");
     QVector<QIcon> icon_for_button({image.scaled(QSize(300, 200), Qt::AspectRatioMode::KeepAspectRatio),
@@ -36,13 +35,16 @@ GameInterface::GameInterface(QWidget *parent)
         buttons_layout->addWidget(button);
         connect(button, &QPushButton::clicked, this, method_ptr.at(i));
     }
-    maps_layout->addWidget(plwidget);
-    qDebug() << plwidget->size();
+
+    PlayerWidget* plwidget1 = new PlayerWidget(this, left_side_map);
+    PlayerWidget* plwidget2 = new PlayerWidget(this, right_side_map);
+    maps_layout->addWidget(plwidget1,0,0);
+    maps_layout->addWidget(plwidget2,0,1);
 
     common_layout->addLayout(maps_layout);
     common_layout->addLayout(buttons_layout);
     setLayout(common_layout);
-    qDebug() << plwidget->size();
+    resize(600,400);
 }
 GameInterface::~GameInterface()
 {
