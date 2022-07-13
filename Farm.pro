@@ -22,6 +22,7 @@ HEADERS += \
     exchangebutton.h \
     game.h \
     gameinterface.h \
+    orientationOfMapEnum.h \
     player.h \
     playerwidget.h
 
