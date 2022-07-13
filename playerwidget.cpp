@@ -1,15 +1,25 @@
+#include <QPainter>
 #include <QPixmap>
+#include <QDebug>
 #include "playerwidget.h"
 
 PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 {
-    label = new QLabel(this);
-    QPixmap image("D:\\QtProjects\\Farm\\farm_map.jpg");
-    label->setPixmap(image.scaled(QSize(600, 400), Qt::AspectRatioMode::KeepAspectRatio));
-    //label->resize(image.size());
-    label->setScaledContents(true);
-
-    map_layout = new QBoxLayout(QBoxLayout::TopToBottom, this);
-    map_layout->addWidget(label);
-    setLayout(map_layout);
+    resize(1000, 300);
+    qDebug() << width() << ' ' << height();
+    update();
+    show();
+}
+void PlayerWidget::paintEvent(QPaintEvent* event)
+{
+    QWidget::paintEvent(event);
+    QPixmap image;
+    bool isLoaded = image.load("D:\\QtProjects\\Farm\\left_farm_map.png");
+    if(isLoaded == false)
+        qDebug() << "image is not loaded";
+    QPainter painter(this);
+    qDebug() << width() << ' ' << height();
+    painter.drawPixmap(0,0, image.scaled(size(), Qt::AspectRatioMode::KeepAspectRatio));
+    painter.setFont(QFont("Times", 25, QFont::Normal));
+    painter.drawText(0,0, QString("TEST"));
 }

@@ -2,19 +2,18 @@
 #define PLAYERWIDGET_H
 
 #include <QWidget>
-#include <QLabel>
 #include <QBoxLayout>
+#include <QPaintEvent>
 #include "player.h"
 
 class PlayerWidget : public QWidget
 {
     Q_OBJECT
-    //Player* player;
-    QLabel* label;
-    QBoxLayout* map_layout;
+    Player* player;
+protected:
+    void paintEvent(QPaintEvent* event) override;
 public:
     explicit PlayerWidget(QWidget *parent = nullptr);
-
 signals:
 
 };
