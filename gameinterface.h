@@ -10,9 +10,8 @@ class GameInterface : public QWidget
 {
     Q_OBJECT
     Game game;
-    PlayerWidget* plwidget;
     QVBoxLayout* common_layout;
-    QBoxLayout* maps_layout;
+    QGridLayout* maps_layout;
     QHBoxLayout* buttons_layout;
     // ducks to goat, goats to pig, pigs to horse, horses to cows, goat to a dog, horse to a dog
 private:
