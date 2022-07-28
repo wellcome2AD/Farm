@@ -46,98 +46,100 @@ void Player::getCards(QPair<animalEnum, animalEnum> cards)
 }
 bool Player::foxEatsAnimals()
 {
-    if(animals[duck] == 0 && animals[goat] == 0)
-    {
-        return false;
-    }
+    bool smth_changed = false;
     if(antyfox_dog)
     {
         antyfox_dog = false;
+        smth_changed = true;
     }
-    else
+    else if(animals[duck] > 1 || animals[goat] != 0)
     {
-        if(animals[duck] != 0)
-        {
-            animals[duck] = 1;
-        }
+        animals[duck] = 1;
         animals[goat] = 0;
+        smth_changed = true;
     }
-    return true;
+    return smth_changed;
 }
 bool Player::bearEatsAnimals()
 {
-    if(animals[pig] == 0 && animals[horse] == 0 && animals[cow] == 0)
-    {
-        return false;
-    }
+    bool smth_changed = false;
     if(antybear_dog)
     {
         antybear_dog = false;
+        smth_changed = true;
     }
-    else
+    else if(animals[pig] != 0 || animals[horse] != 0 || animals[cow] != 0)
     {
         animals[pig] = animals[horse] = animals[cow] = 0;
+        smth_changed = true;
     }
-    return true;
+    return smth_changed;
 }
 bool Player::DucksToGoat ()
 {
+    bool smth_changed = false;
     if(animals[duck] >= 6)
     {
-        qDebug() << animals[goat] << "goat(s)";
         animals[goat] += 1;
-        qDebug() << animals[goat] << "goat(s)";
         animals[duck] -= 6;
-        return true;
+        smth_changed = true;
     }
-    return false;
+    return smth_changed;
 }
 bool Player::GoatsToPig  ()
 {
+    bool smth_changed = false;
     if(animals[goat] >= 2)
     {
         animals[pig] += 1;
         animals[goat] -= 2;
-        return true;
+        smth_changed = true;
     }
-    return false;
+    return smth_changed;
 }
 bool Player::PigsToHorse ()
 {
+    bool smth_changed = false;
     if(animals[pig] >= 3)
     {
         animals[horse] += 1;
         animals[pig] -= 3;
-        return true;
+        smth_changed = true;
     }
-    return false;
+    return smth_changed;
 }
 bool Player::HorsesToCow ()
 {
+    bool smth_changed = false;
     if(animals[horse] >= 2)
     {
         animals[cow] += 1;
         animals[horse] -= 2;
+        smth_changed = true;
     }
-    return false;
+    return smth_changed;
 }
 bool Player::GoatToDog   ()
 {
-    if(animals[goat] >= 1)
+    bool smth_changed = false;
+    if(animals[goat] >= 1 && antyfox_dog == false)
     {
         antyfox_dog = true;
         animals[goat] -= 1;
+        smth_changed = true;
     }
-    return false;
+    return smth_changed;
 }
 bool Player::HorseToDog  ()
 {
-    if(animals[horse] >= 1)
+    bool smth_changed = false;
+    if(animals[horse] >= 1 && antybear_dog == false)
     {
         antybear_dog = true;
         animals[horse] -= 1;
+        smth_changed = true;
     }
-    return false;
+    return smth_changed;
 }
 void Player::FirstStage()
 {
