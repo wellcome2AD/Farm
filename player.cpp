@@ -3,7 +3,7 @@
 #include "player.h"
 Player::Player()
 {
-    animals.insert(animalEnum::duck, 1);
+    animals.insert(animalEnum::duck, 6);
     animals.insert(animalEnum::goat, 0);
     animals.insert(animalEnum::pig, 0);
     animals.insert(animalEnum::horse, 0);
@@ -83,7 +83,9 @@ bool Player::DucksToGoat ()
 {
     if(animals[duck] >= 6)
     {
+        qDebug() << animals[goat] << "goat(s)";
         animals[goat] += 1;
+        qDebug() << animals[goat] << "goat(s)";
         animals[duck] -= 6;
         return true;
     }
@@ -144,11 +146,11 @@ bool Player::FirstStage()
 }
 bool Player::Exchange(actionEnum action)
 {
-    bool result = false;
+    bool result = false;    
     switch (action)
     {
     case changeDucksToGoat:
-    {
+    {       
         result = DucksToGoat();
         break;
     }

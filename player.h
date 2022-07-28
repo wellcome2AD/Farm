@@ -9,8 +9,8 @@
 class Player
 {
     QMap<animalEnum, int> animals;
-    bool antyfox_dog = true;
-    bool antybear_dog = true;
+    bool antyfox_dog = false;
+    bool antybear_dog = false;
 private:
     //--first stage--
     static QPair<animalEnum, animalEnum> throwDice();
