@@ -13,10 +13,7 @@ class GameInterface : public QWidget
     QVBoxLayout* common_layout;
     QGridLayout* maps_layout;
     QHBoxLayout* buttons_layout;
-    // ducks to goat, goats to pig, pigs to horse, horses to cows, goat to a dog, horse to a dog
 private:
-    void Exchange();
-    void repaintCurrentPlayer();
     void onExchange1ButtonClicked();
     void onExchange2ButtonClicked();
     void onExchange3ButtonClicked();
