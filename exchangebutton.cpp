@@ -4,7 +4,7 @@ ExchangeButton::ExchangeButton(const QIcon &icon, const QString& text, QWidget* 
     : QPushButton(parent)
 {
     installEventFilter(this);
-    setMinimumSize(100, 40);
+    setMinimumSize(90, 30);
     setIcon(icon);
     setIconSize(minimumSize());
     setToolTip(text);
