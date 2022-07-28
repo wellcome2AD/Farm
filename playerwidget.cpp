@@ -9,6 +9,7 @@ PlayerWidget::PlayerWidget(QWidget *parent, orientationOfMapEnum orientation, Pl
       orientation(orientation),
       player(player)
 {
+    setFixedSize(380, 388);
     QString map_path;
     if(orientation == left_side_map)
     {
