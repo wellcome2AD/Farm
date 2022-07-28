@@ -17,7 +17,7 @@ class PlayerWidget : public QWidget
 protected:
     void paintEvent(QPaintEvent* event) override;
 public:
-    explicit PlayerWidget(QWidget *parent = nullptr, orientationOfMapEnum orientation = left_side_map);
+    explicit PlayerWidget(QWidget *parent, orientationOfMapEnum orientation, Player* player);
     bool foo();
 signals:
 

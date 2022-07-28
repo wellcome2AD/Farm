@@ -3,11 +3,11 @@
 #include <QDebug>
 #include "playerwidget.h"
 
-PlayerWidget::PlayerWidget(QWidget *parent, orientationOfMapEnum orientation)
+PlayerWidget::PlayerWidget(QWidget *parent, orientationOfMapEnum orientation, Player* player)
     : QWidget(parent),
       image(QPixmap()),
       orientation(orientation),
-      player(new Player)
+      player(player)
 {
     QString map_path;
     if(orientation == left_side_map)
@@ -23,10 +23,12 @@ PlayerWidget::PlayerWidget(QWidget *parent, orientationOfMapEnum orientation)
     {
         qDebug() << "image is not loaded";
     }
+    resize(400,200);
 }
 
 void PlayerWidget::paintEvent(QPaintEvent* event)
 {
+    qDebug() << "size = " << size();
     QWidget::paintEvent(event);
     QPainter painter1(this);
     QPixmap copy_image = image.scaled(size(), Qt::AspectRatioMode::KeepAspectRatio);
