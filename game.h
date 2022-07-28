@@ -11,8 +11,10 @@ class Game
     QVector<Player*> players;
 public:
     Game(int number_of_players);
+    void NextTurn();
     size_t GetOrder();
-    Player* GetCurrentPlayer() const;
+    Player* GetCurrentPlayer();
+    QVector<Player*> GetListOfPlayers();
 };
 
 #endif // GAME_H
