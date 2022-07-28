@@ -23,9 +23,11 @@ private:
     void onExchange4ButtonClicked();
     void onExchange5ButtonClicked();
     void onExchange6ButtonClicked();
+    void onSkipButtonClicked();
+    void onNextButtonClicked();
 public:
     GameInterface(QWidget *parent = nullptr);
     ~GameInterface();
-    void Turn();
+    void StartGame();
 };
 #endif // GAMEINTERFACE_H
