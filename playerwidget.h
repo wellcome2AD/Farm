@@ -18,8 +18,8 @@ protected:
     void paintEvent(QPaintEvent* event) override;
 public:
     explicit PlayerWidget(QWidget *parent, orientationOfMapEnum orientation, Player* player);
-    bool foo();
-signals:
+public slots:
+    void onPlayerUpdate();
 
 };
 

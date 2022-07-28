@@ -10,6 +10,7 @@ PlayerWidget::PlayerWidget(QWidget *parent, orientationOfMapEnum orientation, Pl
       player(player)
 {
     setFixedSize(380, 388);
+    connect(player, SIGNAL(playerUpdated()), this, SLOT(onPlayerUpdate()));
     QString map_path;
     if(orientation == left_side_map)
     {
@@ -26,10 +27,8 @@ PlayerWidget::PlayerWidget(QWidget *parent, orientationOfMapEnum orientation, Pl
     }
     resize(400,200);
 }
-
 void PlayerWidget::paintEvent(QPaintEvent* event)
 {
-    qDebug() << "size = " << size();
     QWidget::paintEvent(event);
     QPainter painter1(this);
     QPixmap copy_image = image.scaled(size(), Qt::AspectRatioMode::KeepAspectRatio);
@@ -83,13 +82,7 @@ void PlayerWidget::paintEvent(QPaintEvent* event)
     }
     painter1.drawPixmap(0, 0, copy_image);
 }
-bool PlayerWidget::foo()
+void PlayerWidget::onPlayerUpdate()
 {
-    /*Player* current_player = players.at(order);
-    bool changes = current_player->FirstStage();
-    if(changes)
-    {
-    }
-    current_player->Exchange();*/
-    return false;
+    repaint();
 }
