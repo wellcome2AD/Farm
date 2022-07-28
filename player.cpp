@@ -3,7 +3,7 @@
 #include "player.h"
 Player::Player()
 {
-    animals.insert(animalEnum::duck, 6);
+    animals.insert(animalEnum::duck, 1);
     animals.insert(animalEnum::goat, 0);
     animals.insert(animalEnum::pig, 0);
     animals.insert(animalEnum::horse, 0);
@@ -19,6 +19,7 @@ QPair<animalEnum, animalEnum> Player::throwDice()
 }
 void Player::getCards(QPair<animalEnum, animalEnum> cards)
 {
+    qDebug() << "cards were get";
     if(cards.first == cards.second)
     {
         animals[cards.first] += 1 + animals[cards.first] / 2;
@@ -39,7 +40,7 @@ void Player::getCards(QPair<animalEnum, animalEnum> cards)
         }
         else
         {
-            animals[cards.first] += (animals[cards.first] + 1) / 2; // if odd then card makes an additional pair
+            animals[cards.second] += (animals[cards.second] + 1) / 2; // if odd then card makes an additional pair
         }
     }
 }
@@ -138,13 +139,14 @@ bool Player::HorseToDog  ()
     }
     return false;
 }
-bool Player::FirstStage()
+void Player::FirstStage()
 {
     QPair<animalEnum, animalEnum> cards = throwDice();
+    qDebug() << "cards: " + animalEnumToQString(cards.first) + " " + animalEnumToQString(cards.second);
     getCards(cards);
-    return true;
+    emit playerUpdated();
 }
-bool Player::Exchange(actionEnum action)
+void Player::Exchange(actionEnum action)
 {
     bool result = false;    
     switch (action)
@@ -180,7 +182,11 @@ bool Player::Exchange(actionEnum action)
         break;
     }
     }
-    return result;
+    if(result)
+    {
+        emit playerUpdated();
+        qDebug() << "signal was sent"; // when goat is changed to dog, widget isn't repainted
+    }
 }
 bool Player::Win()
 {

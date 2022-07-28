@@ -1,13 +1,15 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include <QObject>
 #include <QPair>
 #include <QMap>
 #include "actionEnum.h"
 #include "animalEnum.h"
 
-class Player
+class Player : public QObject
 {
+    Q_OBJECT
     QMap<animalEnum, int> animals;
     bool antyfox_dog = false;
     bool antybear_dog = false;
@@ -31,8 +33,8 @@ public:
     Player();
     ~Player() = default;
 
-    bool FirstStage();
-    bool Exchange(actionEnum action);
+    void FirstStage();
+    void Exchange(actionEnum action);
     bool Win();
 
     int GetDucks()  const;
@@ -42,6 +44,8 @@ public:
     int GetCows()   const;
     bool GetAntyfoxDog()  const;
     bool GetAntybearDog() const;
+signals:
+    void playerUpdated();
 };
 
 #endif // PLAYER_H
