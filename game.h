@@ -6,11 +6,11 @@
 
 class Game
 {
-    int number_of_players;
     size_t order = 0;
     QVector<Player*> players;
 public:
     Game(int number_of_players);
+    ~Game();
     void NextTurn();
     size_t GetOrder();
     Player* GetCurrentPlayer();
