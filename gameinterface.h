@@ -15,6 +15,8 @@ class GameInterface : public QWidget
     QHBoxLayout* buttons_layout;
     // ducks to goat, goats to pig, pigs to horse, horses to cows, goat to a dog, horse to a dog
 private:
+    void Exchange();
+    void repaintCurrentPlayer();
     void onExchange1ButtonClicked();
     void onExchange2ButtonClicked();
     void onExchange3ButtonClicked();
@@ -24,5 +26,6 @@ private:
 public:
     GameInterface(QWidget *parent = nullptr);
     ~GameInterface();
+    void Turn();
 };
 #endif // GAMEINTERFACE_H
