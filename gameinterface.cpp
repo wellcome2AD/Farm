@@ -2,13 +2,15 @@
 #include <QDebug>
 #include <QMessageBox>
 #include "gameinterface.h"
+#include "gamephasewidget.h"
 
 GameInterface::GameInterface(QWidget *parent)
     : QWidget       (parent),
       game          (4),
       common_layout (new QVBoxLayout(this)),
       maps_layout   (new QGridLayout),
-      buttons_layout(new QHBoxLayout)
+      buttons_layout(new QHBoxLayout),
+      game_phase(new GamePhaseWidget(this))
 {
     QVector<QIcon> icon_for_button({QPixmap(":/resources/exchange1"),
                                     QPixmap(":/resources/exchange2"),
@@ -55,13 +57,16 @@ GameInterface::GameInterface(QWidget *parent)
     buttons_layout->setAlignment(layout, Qt::AlignJustify);
 
     auto list_of_players = game.GetListOfPlayers();
-    for(int i=0; i < list_of_players.size()/2; ++i)
+
+    for(int n = 0; n < list_of_players.size() / 2; ++n)
     {
-        PlayerWidget* left_plwidget = new PlayerWidget(this, left_side_map, list_of_players.at(i));
-        PlayerWidget* right_plwidget = new PlayerWidget(this, right_side_map, list_of_players.at(i+2));
-        qDebug() << "Players " << i << " and " << i+2 << " were created";
-        maps_layout->addWidget(left_plwidget, i, 0);
-        maps_layout->addWidget(right_plwidget, i, 1);
+        for(int m = 0; m < 2; ++m)
+        {
+            orientationOfMapEnum o = m % 2 == 0? left_side_map : right_side_map;
+            PlayerWidget* plwidget = new PlayerWidget(this, o, list_of_players.at(n * 2 + m));
+            qDebug() << "Players " << n * 2 + m << " were created";
+            maps_layout->addWidget(plwidget, n, m);
+    }
     }
 
     buttons_layout->setContentsMargins(2, 0, 2, 0);
@@ -70,25 +75,25 @@ GameInterface::GameInterface(QWidget *parent)
     common_layout->addLayout(buttons_layout);
     common_layout->setAlignment(buttons_layout, Qt::AlignCenter);
     setLayout(common_layout);
-    setFixedSize(770, 856);
+    qDebug() << width() << " " << height();
 }
 GameInterface::~GameInterface()
 {
 }
 void GameInterface::StartGame()
 {
+    game_phase->show();
     Player* currentPlayer = game.GetCurrentPlayer();
     if(currentPlayer == nullptr)
     {
         qDebug() << "Can't get player " + QString::number(game.GetOrder());
         return;
     }
-    if(!currentPlayer->IsWin())
-    {
         currentPlayer->FirstStage();
-        qDebug() << "turn " << game.GetOrder() << " was done";
+    //game_phase->NextPhase();
+    //game_phase->show();
+    //QTimer::singleShot(2000, game_phase->hide());
     }
-}
 void GameInterface::onExchange1ButtonClicked()
 {
     Player* currentPlayer = game.GetCurrentPlayer();
@@ -171,6 +176,7 @@ void GameInterface::onSkipButtonClicked()
 }
 void GameInterface::onNextButtonClicked()
 {
+    qDebug() << "turn " << game.GetOrder() << " was done";
     game.NextTurn();
     /*QMessageBox m(this);
     m.setWindowTitle("Next turn");
@@ -179,7 +185,10 @@ void GameInterface::onNextButtonClicked()
     m.exec();*/
     StartGame();
 }
-
+void GameInterface::moveEvent(QMoveEvent* event)
+{
+    game_phase->move(event->pos());
+}
 const Game& GameInterface::GetGame() const
 {
   return game;
