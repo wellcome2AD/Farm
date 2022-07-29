@@ -20,6 +20,7 @@ SOURCES += \
 HEADERS += \
     actionEnum.h \
     animalEnum.h \
+    dicegenerator.h \
     exchangebutton.h \
     game.h \
     gameinterface.h \
