@@ -45,7 +45,6 @@ void labelFadeAnimation(QLabel* label, const QVariant& start_value, const QVaria
 }
 void GamePhaseWidget::NextPhase()
 {
-    //QTimer::singleShot(2000, game_phase->hide());
     QLayoutItem* item = layout->takeAt(0);
     if(item == nullptr)
     {
@@ -60,4 +59,7 @@ void GamePhaseWidget::NextPhase()
     }
     current_phase = (current_phase + 1) % phase_text.size();
     label->setText(phase_text.at(current_phase));
+    layout->addWidget(label);
+    labelFadeAnimation(label, 0.0, 1.0, 500);
+    QTimer::singleShot(2000, this, [label]{labelFadeAnimation(label, 1.0, 0.0, 500);});
 }

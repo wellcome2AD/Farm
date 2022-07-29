@@ -9,7 +9,7 @@ class GamePhaseWidget : public QWidget
 {
     Q_OBJECT
     QVBoxLayout* layout;
-    const QVector<QString> phase_text{"DICE THROW", "EXCHANGE", "ARE YOU WINNING SON?", "NEXT PLAYER"};
+    const QVector<QString> phase_text{"DICE THROW", "EXCHANGE"};
     size_t current_phase = 0;
 public:
     explicit GamePhaseWidget(QWidget *parent = nullptr);
