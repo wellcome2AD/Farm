@@ -14,11 +14,11 @@ PlayerWidget::PlayerWidget(QWidget *parent, orientationOfMapEnum orientation, Pl
     QString map_path;
     if(orientation == left_side_map)
     {
-        map_path = "D:\\QtProjects\\Farm\\left_farm_map.png";
+        map_path = ":/resources/left_farm_map";
     }
     else
     {
-        map_path = "D:\\QtProjects\\Farm\\right_farm_map.png";
+        map_path = ":/resources/right_farm_map";
     }
     bool isLoaded = image.load(map_path);
     if(isLoaded == false)
@@ -56,7 +56,7 @@ void PlayerWidget::paintEvent(QPaintEvent* event)
 
     if(player->GetAntyfoxDog())
     {
-        QPixmap antyfox_dog("D:\\QtProjects\\Farm\\antyfox_dog.png");
+        QPixmap antyfox_dog(":/resources/antyfox_dog");
         antyfox_dog = antyfox_dog.scaled(size()/10, Qt::AspectRatioMode::KeepAspectRatio);
         if(orientation == left_side_map)
         {
@@ -69,7 +69,7 @@ void PlayerWidget::paintEvent(QPaintEvent* event)
     }
     if(player->GetAntybearDog())
     {
-        QPixmap antybear_dog("D:\\QtProjects\\Farm\\antybear_dog.png");
+        QPixmap antybear_dog(":/resources/antybear_dog");
         antybear_dog = antybear_dog.scaled(size()/10, Qt::AspectRatioMode::KeepAspectRatio);
         if(orientation == left_side_map)
         {
