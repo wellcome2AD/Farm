@@ -12,6 +12,10 @@ GameInterface::GameInterface(QWidget *parent)
       buttons_layout(new QHBoxLayout),
       game_phase(new GamePhaseWidget(this))
 {
+    QPoint parent_center(x() + width() / 2 - 80, y() + height() / 2 + 120);
+    qDebug() << parent_center;
+    game_phase->move(parent_center);
+    game_phase->show();
     QVector<QIcon> icon_for_button({QPixmap(":/resources/exchange1"),
                                     QPixmap(":/resources/exchange2"),
                                     QPixmap(":/resources/exchange3"),
@@ -89,7 +93,7 @@ void GameInterface::StartGame()
         qDebug() << "Can't get player " + QString::number(game.GetOrder());
         return;
     }
-        currentPlayer->FirstStage();
+    currentPlayer->FirstStage();
     //game_phase->NextPhase();
     //game_phase->show();
     //QTimer::singleShot(2000, game_phase->hide());
