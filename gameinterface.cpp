@@ -2,13 +2,15 @@
 #include <QDebug>
 #include <QMessageBox>
 #include "gameinterface.h"
+#include "gamephasewidget.h"
 
 GameInterface::GameInterface(QWidget *parent)
     : QWidget       (parent),
-      game          (3),
+      game          (4),
       common_layout (new QVBoxLayout(this)),
       maps_layout   (new QGridLayout),
-      buttons_layout(new QHBoxLayout)
+      buttons_layout(new QHBoxLayout),
+      game_phase(new GamePhaseWidget(this))
 {
     QVector<QIcon> icon_for_button({QPixmap("D:\\QtProjects\\Farm\\exchange1.png"),
                                     QPixmap("D:\\QtProjects\\Farm\\exchange2"),
@@ -73,24 +75,24 @@ GameInterface::GameInterface(QWidget *parent)
     common_layout->addLayout(buttons_layout);
     common_layout->setAlignment(buttons_layout, Qt::AlignCenter);
     setLayout(common_layout);
-    //setFixedSize(770, 856);
+    qDebug() << width() << " " << height();
 }
 GameInterface::~GameInterface()
-{
+{     
 }
 void GameInterface::StartGame()
 {
+    game_phase->show();
     Player* currentPlayer = game.GetCurrentPlayer();
     if(currentPlayer == nullptr)
     {
         qDebug() << "Can't get player " + QString::number(game.GetOrder());
         return;
     }
-    if(!currentPlayer->Win())
-    {
-        currentPlayer->FirstStage();
-        qDebug() << "turn " << game.GetOrder() << " was done";
-    }
+    currentPlayer->FirstStage();
+    //game_phase->NextPhase();
+    //game_phase->show();
+    //QTimer::singleShot(2000, game_phase->hide());
 }
 void GameInterface::onExchange1ButtonClicked()
 {
@@ -174,6 +176,7 @@ void GameInterface::onSkipButtonClicked()
 }
 void GameInterface::onNextButtonClicked()
 {
+    qDebug() << "turn " << game.GetOrder() << " was done";
     game.NextTurn();
     QMessageBox m(this);
     m.setWindowTitle("Next turn");
@@ -181,4 +184,8 @@ void GameInterface::onNextButtonClicked()
     m.setText(string);
     m.exec();
     StartGame();
+}
+void GameInterface::moveEvent(QMoveEvent* event)
+{
+    game_phase->move(event->pos());
 }

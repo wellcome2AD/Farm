@@ -5,6 +5,7 @@
 #include "exchangebutton.h"
 #include "game.h"
 #include "playerwidget.h"
+#include "gamephasewidget.h"
 
 class GameInterface : public QWidget
 {
@@ -13,6 +14,7 @@ class GameInterface : public QWidget
     QVBoxLayout* common_layout;
     QGridLayout* maps_layout;
     QHBoxLayout* buttons_layout;
+    GamePhaseWidget* game_phase;
 private:
     void onExchange1ButtonClicked();
     void onExchange2ButtonClicked();
@@ -22,6 +24,8 @@ private:
     void onExchange6ButtonClicked();
     void onSkipButtonClicked();
     void onNextButtonClicked();
+protected:
+    void moveEvent(QMoveEvent* event) override;
 public:
     GameInterface(QWidget *parent = nullptr);
     ~GameInterface();
