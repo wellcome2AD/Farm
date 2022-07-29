@@ -15,9 +15,6 @@ class Player : public QObject
     bool antybear_dog = false;
 private:
     //--first stage--
-    static QPair<animalEnum, animalEnum> throwDice();
-private:
-    //--first stage--
     void getCards(QPair<animalEnum, animalEnum> cards);
     bool foxEatsAnimals();
     bool bearEatsAnimals();

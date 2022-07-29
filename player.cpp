@@ -1,6 +1,7 @@
 #include <QRandomGenerator>
 #include <QDebug>
 #include "player.h"
+#include "dicegenerator.h"
 Player::Player()
 {
     animals.insert(animalEnum::duck, 1);
@@ -8,14 +9,6 @@ Player::Player()
     animals.insert(animalEnum::pig, 0);
     animals.insert(animalEnum::horse, 0);
     animals.insert(animalEnum::cow, 0);
-}
-QPair<animalEnum, animalEnum> Player::throwDice()
-{
-    static constexpr animalEnum die1[12] = { duck, duck, duck, duck, duck, duck, goat, goat, goat, bear, pig, horse};
-    static constexpr animalEnum die2[12] = { duck, duck, duck, duck, duck, duck, goat, goat, pig, pig, fox, cow};
-    size_t num1 = QRandomGenerator::global()->bounded(1, 13);
-    size_t num2 = QRandomGenerator::global()->bounded(1, 13);
-    return QPair<animalEnum, animalEnum>(die1[num1], die2[num2]); // to do: is it normal?
 }
 void Player::getCards(QPair<animalEnum, animalEnum> cards)
 {
@@ -143,7 +136,8 @@ bool Player::HorseToDog  ()
 }
 void Player::FirstStage()
 {
-    QPair<animalEnum, animalEnum> cards = throwDice();
+    DiceGenerator::GetDice().ThrowDice();
+    QPair<animalEnum, animalEnum> cards = DiceGenerator::GetDice().GetResult();
     qDebug() << "cards: " + animalEnumToQString(cards.first) + " " + animalEnumToQString(cards.second);
     getCards(cards);
     update();
