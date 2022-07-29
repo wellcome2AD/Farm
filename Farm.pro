@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     exchangebutton.cpp \
     game.cpp \
+    gamephasewidget.cpp \
     main.cpp \
     gameinterface.cpp \
     player.cpp \
@@ -22,6 +23,7 @@ HEADERS += \
     exchangebutton.h \
     game.h \
     gameinterface.h \
+    gamephasewidget.h \
     orientationOfMapEnum.h \
     player.h \
     playerwidget.h
