@@ -2,6 +2,7 @@
 #include <QPixmap>
 #include <QDebug>
 #include "playerwidget.h"
+#include "gameinterface.h"
 
 PlayerWidget::PlayerWidget(QWidget *parent, orientationOfMapEnum orientation, Player* player)
     : QWidget(parent),
@@ -32,6 +33,7 @@ void PlayerWidget::paintEvent(QPaintEvent* event)
     QWidget::paintEvent(event);
     QPainter painter1(this);
     QPixmap copy_image = image.scaled(size(), Qt::AspectRatioMode::KeepAspectRatio);
+    resize(copy_image.size());
     QPainter painter2(&copy_image);
 
     size_t text_size = copy_image.width()/32;
@@ -81,6 +83,14 @@ void PlayerWidget::paintEvent(QPaintEvent* event)
         }
     }
     painter1.drawPixmap(0, 0, copy_image);
+
+    auto gameInterface = qobject_cast<GameInterface*>(parent());
+    if (gameInterface && gameInterface->GetGame().GetCurrentPlayer() == player)
+    {
+      constexpr int thickness = 4;
+      painter1.setPen(QPen(Qt::red, thickness));
+      painter1.drawRect(0 + thickness / 2, 0 + thickness / 2, width() - thickness, height() - thickness);
+    }
 }
 void PlayerWidget::onPlayerUpdate()
 {

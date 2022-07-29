@@ -83,7 +83,7 @@ void GameInterface::StartGame()
         qDebug() << "Can't get player " + QString::number(game.GetOrder());
         return;
     }
-    if(!currentPlayer->Win())
+    if(!currentPlayer->IsWin())
     {
         currentPlayer->FirstStage();
         qDebug() << "turn " << game.GetOrder() << " was done";
@@ -157,7 +157,7 @@ void GameInterface::onSkipButtonClicked()
         qDebug() << "Can't get player " + QString::number(game.GetOrder());
         return;
     }
-    if(currentPlayer->Win())
+    if(currentPlayer->IsWin())
     {
         QMessageBox m(this);
         m.setWindowTitle("Congratulations!");
@@ -172,10 +172,15 @@ void GameInterface::onSkipButtonClicked()
 void GameInterface::onNextButtonClicked()
 {
     game.NextTurn();
-    QMessageBox m(this);
+    /*QMessageBox m(this);
     m.setWindowTitle("Next turn");
     QString string = "Player's " + QString::number(game.GetOrder()) + " turn";
     m.setText(string);
-    m.exec();
+    m.exec();*/
     StartGame();
+}
+
+const Game& GameInterface::GetGame() const
+{
+  return game;
 }

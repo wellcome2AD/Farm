@@ -11,17 +11,23 @@ Game::~Game()
 }
 void Game::NextTurn()
 {
+    auto prevPlayer = GetCurrentPlayer();
     order = (order + 1) % players.size();
+    prevPlayer->update();
 }
-size_t Game::GetOrder()
+size_t Game::GetOrder() const
 {
     return order;
 }
 Player* Game::GetCurrentPlayer()
 {
+    return const_cast<Player*>(const_cast<const Game&>(*this).GetCurrentPlayer());
+}
+const Player* Game::GetCurrentPlayer() const
+{
     return players.at(order);
 }
-QVector<Player*> Game::GetListOfPlayers()
+const QVector<Player*>& Game::GetListOfPlayers() const
 {
     return players;
 }
