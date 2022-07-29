@@ -14,7 +14,6 @@ GameInterface::GameInterface(QWidget *parent)
       game_phase(new GamePhaseWidget(this))
 {
     move(0,0);
-    game_phase->show();
     QVector<QIcon> icon_for_button({QPixmap(":/resources/exchange1"),
                                     QPixmap(":/resources/exchange2"),
                                     QPixmap(":/resources/exchange3"),
@@ -59,7 +58,7 @@ GameInterface::GameInterface(QWidget *parent)
             PlayerWidget* plwidget = new PlayerWidget(this, o, list_of_players.at(n * 2 + m));
             qDebug() << "Players " << n * 2 + m << " were created";
             maps_layout->addWidget(plwidget, n, m);
-    }
+        }
     }
 
     buttons_layout->setContentsMargins(2, 0, 2, 0);
@@ -68,12 +67,17 @@ GameInterface::GameInterface(QWidget *parent)
     common_layout->addLayout(buttons_layout);
     common_layout->setAlignment(buttons_layout, Qt::AlignCenter);
     setLayout(common_layout);
+
+    game_phase->show();
 }
 GameInterface::~GameInterface()
 {
 }
 void GameInterface::StartGame()
 {
+    qDebug() << "you are here";
+    game_phase->NextPhase();
+
     setDisabledNextButton(true);
     Player* currentPlayer = game.GetCurrentPlayer();
     if(currentPlayer == nullptr)
@@ -180,7 +184,6 @@ void GameInterface::onNextButtonClicked()
         QString string = "Player's " + QString::number(game.GetOrder()) + " turn";
         m.setText(string);
         m.exec();
-        game_phase->NextPhase();
         StartGame();
     }
 }
