@@ -13,7 +13,7 @@ class GamePhaseWidget : public QWidget
     const QVector<QString> phase_text{"DICE THROW", "EXCHANGE"};
     size_t current_phase;
 private:
-    void widgetFadeAnimation(const QVariant& start_value, const QVariant& end_value, int duration);
+    void labelFadeAnimation(QLabel* label, const QVariant& start_value, const QVariant& end_value, int duration);
 public:
     explicit GamePhaseWidget(QWidget *parent = nullptr);
     void NextPhase();
