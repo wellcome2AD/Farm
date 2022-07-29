@@ -2,6 +2,7 @@
 #include <QPixmap>
 #include <QDebug>
 #include "playerwidget.h"
+#include "gameinterface.h"
 
 PlayerWidget::PlayerWidget(QWidget *parent, orientationOfMapEnum orientation, Player* player)
     : QWidget(parent),
@@ -14,11 +15,11 @@ PlayerWidget::PlayerWidget(QWidget *parent, orientationOfMapEnum orientation, Pl
     QString map_path;
     if(orientation == left_side_map)
     {
-        map_path = "D:\\QtProjects\\Farm\\left_farm_map.png";
+        map_path = ":/resources/left_farm_map";
     }
     else
     {
-        map_path = "D:\\QtProjects\\Farm\\right_farm_map.png";
+        map_path = ":/resources/right_farm_map";
     }
     bool isLoaded = image.load(map_path);
     if(isLoaded == false)
@@ -32,6 +33,7 @@ void PlayerWidget::paintEvent(QPaintEvent* event)
     QWidget::paintEvent(event);
     QPainter painter1(this);
     QPixmap copy_image = image.scaled(size(), Qt::AspectRatioMode::KeepAspectRatio);
+    resize(copy_image.size());
     QPainter painter2(&copy_image);
 
     size_t text_size = copy_image.width()/32;
@@ -56,7 +58,7 @@ void PlayerWidget::paintEvent(QPaintEvent* event)
 
     if(player->GetAntyfoxDog())
     {
-        QPixmap antyfox_dog("D:\\QtProjects\\Farm\\antyfox_dog.png");
+        QPixmap antyfox_dog(":/resources/antyfox_dog");
         antyfox_dog = antyfox_dog.scaled(size()/10, Qt::AspectRatioMode::KeepAspectRatio);
         if(orientation == left_side_map)
         {
@@ -69,7 +71,7 @@ void PlayerWidget::paintEvent(QPaintEvent* event)
     }
     if(player->GetAntybearDog())
     {
-        QPixmap antybear_dog("D:\\QtProjects\\Farm\\antybear_dog.png");
+        QPixmap antybear_dog(":/resources/antybear_dog");
         antybear_dog = antybear_dog.scaled(size()/10, Qt::AspectRatioMode::KeepAspectRatio);
         if(orientation == left_side_map)
         {
@@ -81,6 +83,14 @@ void PlayerWidget::paintEvent(QPaintEvent* event)
         }
     }
     painter1.drawPixmap(0, 0, copy_image);
+
+    auto gameInterface = qobject_cast<GameInterface*>(parent());
+    if (gameInterface && gameInterface->GetGame().GetCurrentPlayer() == player)
+    {
+      constexpr int thickness = 4;
+      painter1.setPen(QPen(Qt::red, thickness));
+      painter1.drawRect(0 + thickness / 2, 0 + thickness / 2, width() - thickness, height() - thickness);
+    }
 }
 void PlayerWidget::onPlayerUpdate()
 {

@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+    <file>resources/antybear_dog.png</file>
+    <file>resources/antyfox_dog.png</file>
+    <file>resources/exchange1.png</file>
+    <file>resources/exchange2.png</file>
+    <file>resources/exchange3.png</file>
+    <file>resources/exchange4.png</file>
+    <file>resources/exchange5.png</file>
+    <file>resources/exchange6.png</file>
+    <file>resources/left_farm_map.png</file>
+    <file>resources/right_farm_map.png</file>
+    </qresource>
+</RCC>

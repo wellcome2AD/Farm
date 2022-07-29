@@ -35,7 +35,7 @@ public:
 
     void FirstStage();
     void Exchange(actionEnum action);
-    bool Win();
+    bool IsWin() const;
 
     int GetDucks()  const;
     int GetGoats()  const;
@@ -44,6 +44,7 @@ public:
     int GetCows()   const;
     bool GetAntyfoxDog()  const;
     bool GetAntybearDog() const;
+    void update();
 signals:
     void playerUpdated();
 };

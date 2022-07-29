@@ -12,12 +12,12 @@ GameInterface::GameInterface(QWidget *parent)
       buttons_layout(new QHBoxLayout),
       game_phase(new GamePhaseWidget(this))
 {
-    QVector<QIcon> icon_for_button({QPixmap("D:\\QtProjects\\Farm\\exchange1.png"),
-                                    QPixmap("D:\\QtProjects\\Farm\\exchange2"),
-                                    QPixmap("D:\\QtProjects\\Farm\\exchange3"),
-                                    QPixmap("D:\\QtProjects\\Farm\\exchange4"),
-                                    QPixmap("D:\\QtProjects\\Farm\\exchange5"),
-                                    QPixmap("D:\\QtProjects\\Farm\\exchange6")});
+    QVector<QIcon> icon_for_button({QPixmap(":/resources/exchange1"),
+                                    QPixmap(":/resources/exchange2"),
+                                    QPixmap(":/resources/exchange3"),
+                                    QPixmap(":/resources/exchange4"),
+                                    QPixmap(":/resources/exchange5"),
+                                    QPixmap(":/resources/exchange6")});
     QVector<QString> text_for_button(std::initializer_list<QString>{QString("6 Ducks to 1 Goat"),
                                                                     QString("2 Goat to 1 Pig"),
                                                                     QString("3 Pig to 1 Horse"),
@@ -66,7 +66,7 @@ GameInterface::GameInterface(QWidget *parent)
             PlayerWidget* plwidget = new PlayerWidget(this, o, list_of_players.at(n * 2 + m));
             qDebug() << "Players " << n * 2 + m << " were created";
             maps_layout->addWidget(plwidget, n, m);
-        }
+    }
     }
 
     buttons_layout->setContentsMargins(2, 0, 2, 0);
@@ -78,7 +78,7 @@ GameInterface::GameInterface(QWidget *parent)
     qDebug() << width() << " " << height();
 }
 GameInterface::~GameInterface()
-{     
+{
 }
 void GameInterface::StartGame()
 {
@@ -89,11 +89,11 @@ void GameInterface::StartGame()
         qDebug() << "Can't get player " + QString::number(game.GetOrder());
         return;
     }
-    currentPlayer->FirstStage();
+        currentPlayer->FirstStage();
     //game_phase->NextPhase();
     //game_phase->show();
     //QTimer::singleShot(2000, game_phase->hide());
-}
+    }
 void GameInterface::onExchange1ButtonClicked()
 {
     Player* currentPlayer = game.GetCurrentPlayer();
@@ -162,7 +162,7 @@ void GameInterface::onSkipButtonClicked()
         qDebug() << "Can't get player " + QString::number(game.GetOrder());
         return;
     }
-    if(currentPlayer->Win())
+    if(currentPlayer->IsWin())
     {
         QMessageBox m(this);
         m.setWindowTitle("Congratulations!");
@@ -178,14 +178,18 @@ void GameInterface::onNextButtonClicked()
 {
     qDebug() << "turn " << game.GetOrder() << " was done";
     game.NextTurn();
-    QMessageBox m(this);
+    /*QMessageBox m(this);
     m.setWindowTitle("Next turn");
     QString string = "Player's " + QString::number(game.GetOrder()) + " turn";
     m.setText(string);
-    m.exec();
+    m.exec();*/
     StartGame();
 }
 void GameInterface::moveEvent(QMoveEvent* event)
 {
     game_phase->move(event->pos());
+}
+const Game& GameInterface::GetGame() const
+{
+  return game;
 }

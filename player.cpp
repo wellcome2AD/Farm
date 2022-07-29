@@ -146,7 +146,7 @@ void Player::FirstStage()
     QPair<animalEnum, animalEnum> cards = throwDice();
     qDebug() << "cards: " + animalEnumToQString(cards.first) + " " + animalEnumToQString(cards.second);
     getCards(cards);
-    emit playerUpdated();
+    update();
 }
 void Player::Exchange(actionEnum action)
 {
@@ -186,11 +186,11 @@ void Player::Exchange(actionEnum action)
     }
     if(result)
     {
-        emit playerUpdated();
+        update();
         qDebug() << "signal was sent"; // when goat is changed to dog, widget isn't repainted
     }
 }
-bool Player::Win()
+bool Player::IsWin() const
 {
     return animals[duck] && animals[goat] && animals[pig] && animals[horse] && animals[cow];
 }
@@ -221,4 +221,8 @@ bool Player::GetAntyfoxDog()  const
 bool Player::GetAntybearDog() const
 {
     return antybear_dog;
+}
+void Player::update()
+{
+  emit playerUpdated();
 }

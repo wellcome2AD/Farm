@@ -12,9 +12,10 @@ public:
     Game(int number_of_players);
     ~Game();
     void NextTurn();
-    size_t GetOrder();
+    size_t GetOrder() const;
     Player* GetCurrentPlayer();
-    QVector<Player*> GetListOfPlayers();
+    const Player* GetCurrentPlayer() const;
+    const QVector<Player*>& GetListOfPlayers() const;
 };
 
 #endif // GAME_H
