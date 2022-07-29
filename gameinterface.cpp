@@ -1,5 +1,6 @@
 #include <QPainter>
 #include <QDebug>
+#include <QTimer>
 #include <QMessageBox>
 #include "gameinterface.h"
 #include "gamephasewidget.h"
@@ -12,9 +13,7 @@ GameInterface::GameInterface(QWidget *parent)
       buttons_layout(new QHBoxLayout),
       game_phase(new GamePhaseWidget(this))
 {
-    QPoint parent_center(x() + width() / 2 - 80, y() + height() / 2 + 120);
-    qDebug() << parent_center;
-    game_phase->move(parent_center);
+    move(0,0);
     game_phase->show();
     QVector<QIcon> icon_for_button({QPixmap(":/resources/exchange1"),
                                     QPixmap(":/resources/exchange2"),
@@ -42,23 +41,13 @@ GameInterface::GameInterface(QWidget *parent)
         connect(button, &QPushButton::clicked, this, method_ptr.at(i));
     }
 
-    QPushButton* skip_button = new QPushButton(this);
-    size_t skip_text_size = skip_button->width()/10 + 3;
-    skip_button->setFont(QFont("Times", skip_text_size, QFont::Bold));
-    skip_button->setText("Skip exchange");
-    connect(skip_button, &QPushButton::clicked, this, &GameInterface::onSkipButtonClicked);
-
     QPushButton* next_button = new QPushButton(this);
     size_t next_text_size = next_button->width()/10 + 3;
     next_button->setFont(QFont("Times", next_text_size, QFont::Bold));
     next_button->setText("Next turn");
+    next_button->setDisabled(true);
     connect(next_button, &QPushButton::clicked, this, &GameInterface::onNextButtonClicked);
-
-    QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget(skip_button);
-    layout->addWidget(next_button);
-    buttons_layout->addLayout(layout);
-    buttons_layout->setAlignment(layout, Qt::AlignJustify);
+    buttons_layout->addWidget(next_button);
 
     auto list_of_players = game.GetListOfPlayers();
 
@@ -79,14 +68,13 @@ GameInterface::GameInterface(QWidget *parent)
     common_layout->addLayout(buttons_layout);
     common_layout->setAlignment(buttons_layout, Qt::AlignCenter);
     setLayout(common_layout);
-    qDebug() << width() << " " << height();
 }
 GameInterface::~GameInterface()
 {
 }
 void GameInterface::StartGame()
 {
-    game_phase->show();
+    setDisabledNextButton(true);
     Player* currentPlayer = game.GetCurrentPlayer();
     if(currentPlayer == nullptr)
     {
@@ -94,10 +82,24 @@ void GameInterface::StartGame()
         return;
     }
     currentPlayer->FirstStage();
-    //game_phase->NextPhase();
-    //game_phase->show();
-    //QTimer::singleShot(2000, game_phase->hide());
+    QTimer::singleShot(5000, this, [this](){ game_phase->NextPhase(), setDisabledNextButton(false); });
+}
+void GameInterface::setDisabledNextButton(bool is_disabled)
+{
+    QLayoutItem* item = buttons_layout->itemAt(6);
+    if(item == nullptr)
+    {
+        qDebug() << "GameInterface: Can't get an item from buttons_layout";
+        return;
     }
+    auto next_button = qobject_cast<QPushButton*>(item->widget());
+    if(next_button == nullptr)
+    {
+        qDebug() << "GameInterface: Can't get a next_button from item";
+        return;
+    }
+    next_button->setDisabled(is_disabled);
+}
 void GameInterface::onExchange1ButtonClicked()
 {
     Player* currentPlayer = game.GetCurrentPlayer();
@@ -158,36 +160,29 @@ void GameInterface::onExchange6ButtonClicked()
     }
     currentPlayer->Exchange(changeHorseToDog);
 }
-void GameInterface::onSkipButtonClicked()
+void GameInterface::onNextButtonClicked()
 {
     Player* currentPlayer = game.GetCurrentPlayer();
-    if(currentPlayer == nullptr)
-    {
-        qDebug() << "Can't get player " + QString::number(game.GetOrder());
-        return;
-    }
     if(currentPlayer->IsWin())
     {
         QMessageBox m(this);
         m.setWindowTitle("Congratulations!");
         m.setText("You win!!!");
+        m.addButton("yep", QMessageBox::AcceptRole);
         m.exec();
     }
     else
     {
-        onNextButtonClicked();
+        qDebug() << "turn " << game.GetOrder() << " was done";
+        game.NextTurn();
+        QMessageBox m(this);
+        m.setWindowTitle("Next turn");
+        QString string = "Player's " + QString::number(game.GetOrder()) + " turn";
+        m.setText(string);
+        m.exec();
+        game_phase->NextPhase();
+        StartGame();
     }
-}
-void GameInterface::onNextButtonClicked()
-{
-    qDebug() << "turn " << game.GetOrder() << " was done";
-    game.NextTurn();
-    /*QMessageBox m(this);
-    m.setWindowTitle("Next turn");
-    QString string = "Player's " + QString::number(game.GetOrder()) + " turn";
-    m.setText(string);
-    m.exec();*/
-    StartGame();
 }
 void GameInterface::moveEvent(QMoveEvent* event)
 {

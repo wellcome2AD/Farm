@@ -22,8 +22,8 @@ private:
     void onExchange4ButtonClicked();
     void onExchange5ButtonClicked();
     void onExchange6ButtonClicked();
-    void onSkipButtonClicked();
     void onNextButtonClicked();
+    void setDisabledNextButton(bool);
 protected:
     void moveEvent(QMoveEvent* event) override;
 public:
