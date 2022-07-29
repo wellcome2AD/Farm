@@ -1,14 +1,22 @@
 <RCC>
     <qresource prefix="/">
-    <file>resources/antybear_dog.png</file>
-    <file>resources/antyfox_dog.png</file>
-    <file>resources/exchange1.png</file>
-    <file>resources/exchange2.png</file>
-    <file>resources/exchange3.png</file>
-    <file>resources/exchange4.png</file>
-    <file>resources/exchange5.png</file>
-    <file>resources/exchange6.png</file>
-    <file>resources/left_farm_map.png</file>
-    <file>resources/right_farm_map.png</file>
+        <file>resources/antybear_dog.png</file>
+        <file>resources/antyfox_dog.png</file>
+        <file>resources/exchange1.png</file>
+        <file>resources/exchange2.png</file>
+        <file>resources/exchange3.png</file>
+        <file>resources/exchange4.png</file>
+        <file>resources/exchange5.png</file>
+        <file>resources/exchange6.png</file>
+        <file>resources/left_farm_map.png</file>
+        <file>resources/right_farm_map.png</file>
+        <file>resources/dice.png</file>
+        <file>resources/dice_bear.png</file>
+        <file>resources/dice_cow.png</file>
+        <file>resources/dice_duck.png</file>
+        <file>resources/dice_fox.png</file>
+        <file>resources/dice_goat.png</file>
+        <file>resources/dice_horse.png</file>
+        <file>resources/dice_pig.png</file>
     </qresource>
 </RCC>
