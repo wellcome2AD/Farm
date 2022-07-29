@@ -136,7 +136,6 @@ bool Player::HorseToDog  ()
 }
 void Player::FirstStage()
 {
-    DiceGenerator::GetDice().ThrowDice();
     QPair<animalEnum, animalEnum> cards = DiceGenerator::GetDice().GetResult();
     qDebug() << "cards: " + animalEnumToQString(cards.first) + " " + animalEnumToQString(cards.second);
     getCards(cards);
