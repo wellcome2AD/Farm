@@ -187,25 +187,9 @@ bool Player::IsWin() const
 {
     return animals[duck] && animals[goat] && animals[pig] && animals[horse] && animals[cow];
 }
-int Player::GetDucks()  const
+const QMap<animalEnum, int>& Player::GetAnimals()
 {
-    return animals[duck];
-}
-int Player::GetGoats()  const
-{
-    return animals[goat];
-}
-int Player::GetPigs()   const
-{
-    return animals[pig];
-}
-int Player::GetHorses() const
-{
-    return animals[horse];
-}
-int Player::GetCows() const
-{
-    return animals[cow];
+    return animals;
 }
 bool Player::GetAntyfoxDog()  const
 {
