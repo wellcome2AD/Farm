@@ -1,13 +1,18 @@
+#include <QDebug>
 #include "game.h"
 
 Game::Game(int number_of_players)
+    : order(0)
 {
     for(int i = 0; i < number_of_players; ++i)
         players.append(new Player());
 }
 Game::~Game()
 {
-
+    for(int i = 0; i < players.size(); ++i)
+    {
+        delete players.at(i);
+    }
 }
 void Game::NextTurn()
 {
