@@ -60,7 +60,7 @@ void GamePhaseWidget::NextPhase()
     qDebug() << current_phase << " " << phase_text.at(current_phase);
 
     labelFadeAnimation(label, 0.0, 1.0, 500);
-    QTimer::singleShot(3500, [this]{ labelFadeAnimation(label, 1.0, 0.0, 500); });
+    QTimer::singleShot(2000, [this]{ labelFadeAnimation(label, 1.0, 0.0, 500); });
     if(current_phase == 0)
     {
         DiceGenerator::GetDice().ThrowDice();
@@ -68,8 +68,6 @@ void GamePhaseWidget::NextPhase()
 
         QString file_path1(":/resources/dice_" + animalEnumToQString(pair_of_animals.first));
         QString file_path2(":/resources/dice_" + animalEnumToQString(pair_of_animals.second));
-        qDebug() << file_path1;
-        qDebug() << file_path2;
         QPixmap dice1_pic(file_path1);
         QPixmap dice2_pic(file_path2);
         dice1->setPixmap(dice1_pic.scaled(150, 150, Qt::AspectRatioMode::KeepAspectRatio));
@@ -77,6 +75,6 @@ void GamePhaseWidget::NextPhase()
 
         labelFadeAnimation(dice1, 0.0, 1.0, 500);
         labelFadeAnimation(dice2, 0.0, 1.0, 500);
-        QTimer::singleShot(5000, [this]{ labelFadeAnimation(dice1, 1.0, 0.0, 500), labelFadeAnimation(dice2, 1.0, 0.0, 500); });
+        QTimer::singleShot(2000, [this]{ labelFadeAnimation(dice1, 1.0, 0.0, 500), labelFadeAnimation(dice2, 1.0, 0.0, 500); });
     }
 }
