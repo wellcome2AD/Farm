@@ -3,6 +3,7 @@
 #include <QDebug>
 #include "playerwidget.h"
 #include "gameinterface.h"
+#include "dicegenerator.h"
 
 PlayerWidget::PlayerWidget(QWidget *parent, orientationOfMapEnum orientation, Player* player)
     : QWidget(parent),
@@ -44,15 +45,33 @@ void PlayerWidget::paintEvent(QPaintEvent* event)
     QPainter painter1(this);
     QPainter painter2(&copy_image);
 
-    size_t text_size = copy_image.width()/32;
-    painter2.setFont(QFont("Times", text_size, QFont::Bold));
+    auto gameInterface = qobject_cast<GameInterface*>(parent());
+    auto cur_player = gameInterface->GetCurrentPlayer();
+    if (gameInterface == nullptr)
+    {
+        qDebug() << "PlayerWidget: can't convert parent to GameInterface*";
+        return;
+    }
 
     QString orientaion_string = orientationOfMapEnumToQString(orientation);
     QMap<animalEnum, int> animals= player->GetAnimals();
     animalEnum array[] = {duck, goat, pig, horse, cow};
+    auto changed_animals = DiceGenerator::GetDice().GetResult();
     for(int i = 0; i < animals.size(); ++i)
     {
         animalEnum animal = array[i];
+        if((animal == changed_animals.first || animal == changed_animals.second) && cur_player == player && gameInterface->GetCurrentPhase() == 0)
+        {
+            size_t text_size = copy_image.width()/20;
+            painter2.setFont(QFont("Times", text_size, QFont::Bold));
+            painter2.setPen(Qt::red);
+        }
+        else
+        {
+            size_t text_size = copy_image.width()/32;
+            painter2.setFont(QFont("Times", text_size, QFont::Bold));
+            painter2.setPen(Qt::black);
+        }
         QString animal_string = animalEnumToQString(animal);
         QPointF coeff = coefficents[orientaion_string + ' ' + animal_string];
         int x = copy_image.width() * coeff.x();
@@ -78,14 +97,14 @@ void PlayerWidget::paintEvent(QPaintEvent* event)
         int y = copy_image.height() * coeff.y();
         painter2.drawPixmap(x, y, antybear_dog);
     }
+
     painter1.drawPixmap(0, 0, copy_image);
 
-    auto gameInterface = qobject_cast<GameInterface*>(parent());
-    if (gameInterface && gameInterface->GetGame().GetCurrentPlayer() == player)
+    if(cur_player == player)
     {
-        constexpr int thickness = 4;
-        painter1.setPen(QPen(Qt::red, thickness));
-        painter1.drawRect(0 + thickness / 2, 0 + thickness / 2, width() - thickness, height() - thickness);
+       constexpr int thickness = 4;
+       painter1.setPen(QPen(Qt::red, thickness));
+       painter1.drawRect(0 + thickness / 2, 0 + thickness / 2, width() - thickness, height() - thickness);
     }
 }
 void PlayerWidget::onPlayerUpdate()
