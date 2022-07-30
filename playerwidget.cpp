@@ -49,13 +49,14 @@ void PlayerWidget::paintEvent(QPaintEvent* event)
 
     QString orientaion_string = orientationOfMapEnumToQString(orientation);
     QMap<animalEnum, int> animals= player->GetAnimals();
-    animalEnum list[] = {duck, goat, pig, horse, cow};
+    animalEnum array[] = {duck, goat, pig, horse, cow};
     for(int i = 0; i < animals.size(); ++i)
     {
-        animalEnum animal = list[i];
+        animalEnum animal = array[i];
         QString animal_string = animalEnumToQString(animal);
-        int x = copy_image.width() * coefficents[orientaion_string + ' ' + animal_string].x();
-        int y = copy_image.height() * coefficents[orientaion_string + ' ' + animal_string].y();
+        QPointF coeff = coefficents[orientaion_string + ' ' + animal_string];
+        int x = copy_image.width() * coeff.x();
+        int y = copy_image.height() * coeff.y();
         painter2.drawText(x, y, QString::number(animals[animal]));
     }
 
@@ -63,16 +64,18 @@ void PlayerWidget::paintEvent(QPaintEvent* event)
     {
         QPixmap antyfox_dog(":/resources/antyfox_dog");
         antyfox_dog = antyfox_dog.scaled(size()/10, Qt::AspectRatioMode::KeepAspectRatio);
-        int x = copy_image.width() * coefficents[orientaion_string + " antyfox_dog"].x();
-        int y = copy_image.height() * coefficents[orientaion_string + " antyfox_dog"].y();
+        QPointF coeff = coefficents[orientaion_string + " antyfox_dog"];
+        int x = copy_image.width() * coeff.x();
+        int y = copy_image.height() * coeff.y();
         painter2.drawPixmap(x, y, antyfox_dog);
     }
     if(player->GetAntybearDog())
     {
         QPixmap antybear_dog(":/resources/antybear_dog");
         antybear_dog = antybear_dog.scaled(size()/10, Qt::AspectRatioMode::KeepAspectRatio);
-        int x = copy_image.width() * coefficents[orientaion_string + " antybear_dog"].x();
-        int y = copy_image.height() * coefficents[orientaion_string + " antybear_dog"].y();
+        QPointF coeff = coefficents[orientaion_string + " antybear_dog"];
+        int x = copy_image.width() * coeff.x();
+        int y = copy_image.height() * coeff.y();
         painter2.drawPixmap(x, y, antybear_dog);
     }
 
