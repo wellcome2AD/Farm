@@ -75,14 +75,13 @@ GameInterface::~GameInterface()
 }
 void GameInterface::StartGame()
 {
-    qDebug() << "you are here";
     game_phase->NextPhase();
 
     setDisabledNextButton(true);
     Player* currentPlayer = game.GetCurrentPlayer();
     if(currentPlayer == nullptr)
     {
-        qDebug() << "Can't get player " + QString::number(game.GetOrder());
+        qDebug() << "GameInterface: Can't get player " + QString::number(game.GetOrder());
         return;
     }
     currentPlayer->FirstStage();
@@ -109,7 +108,7 @@ void GameInterface::onExchange1ButtonClicked()
     Player* currentPlayer = game.GetCurrentPlayer();
     if(currentPlayer == nullptr)
     {
-        qDebug() << "Can't get player " + QString::number(game.GetOrder());
+        qDebug() << "GameInterface: Can't get player " + QString::number(game.GetOrder());
         return;
     }
     currentPlayer->Exchange(changeDucksToGoat);
@@ -119,7 +118,7 @@ void GameInterface::onExchange2ButtonClicked()
     Player* currentPlayer = game.GetCurrentPlayer();
     if(currentPlayer == nullptr)
     {
-        qDebug() << "Can't get player " + QString::number(game.GetOrder());
+        qDebug() << "GameInterface: Can't get player " + QString::number(game.GetOrder());
         return;
     }
     currentPlayer->Exchange(changeGoatsToPig);
@@ -129,7 +128,7 @@ void GameInterface::onExchange3ButtonClicked()
     Player* currentPlayer = game.GetCurrentPlayer();
     if(currentPlayer == nullptr)
     {
-        qDebug() << "Can't get player " + QString::number(game.GetOrder());
+        qDebug() << "GameInterface: Can't get player " + QString::number(game.GetOrder());
         return;
     }
     currentPlayer->Exchange(changePigsToHorse);
@@ -139,7 +138,7 @@ void GameInterface::onExchange4ButtonClicked()
     Player* currentPlayer = game.GetCurrentPlayer();
     if(currentPlayer == nullptr)
     {
-        qDebug() << "Can't get player " + QString::number(game.GetOrder());
+        qDebug() << "GameInterface: Can't get player " + QString::number(game.GetOrder());
         return;
     }
     currentPlayer->Exchange(changeHorsesToCow);
@@ -149,7 +148,7 @@ void GameInterface::onExchange5ButtonClicked()
     Player* currentPlayer = game.GetCurrentPlayer();
     if(currentPlayer == nullptr)
     {
-        qDebug() << "Can't get player " + QString::number(game.GetOrder());
+        qDebug() << "GameInterface: Can't get player " + QString::number(game.GetOrder());
         return;
     }
     currentPlayer->Exchange(changeGoatToDog);
@@ -159,7 +158,7 @@ void GameInterface::onExchange6ButtonClicked()
     Player* currentPlayer = game.GetCurrentPlayer();
     if(currentPlayer == nullptr)
     {
-        qDebug() << "Can't get player " + QString::number(game.GetOrder());
+        qDebug() << "GameInterface: Can't get player " + QString::number(game.GetOrder());
         return;
     }
     currentPlayer->Exchange(changeHorseToDog);
