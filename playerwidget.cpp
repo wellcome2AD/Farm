@@ -78,7 +78,6 @@ void PlayerWidget::paintEvent(QPaintEvent* event)
         int y = copy_image.height() * coeff.y();
         painter2.drawPixmap(x, y, antybear_dog);
     }
-
     painter1.drawPixmap(0, 0, copy_image);
 
     auto gameInterface = qobject_cast<GameInterface*>(parent());
