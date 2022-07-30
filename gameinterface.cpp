@@ -170,7 +170,7 @@ void GameInterface::onNextButtonClicked()
     {
         QMessageBox m(this);
         m.setWindowTitle("Congratulations!");
-        m.setText("You win!!!");
+        m.setText("Player #"+ QString::number(game.GetOrder()) + " wins!!!");
         m.addButton("yep", QMessageBox::AcceptRole);
         m.exec();
     }
