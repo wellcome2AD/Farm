@@ -3,6 +3,7 @@
 #include <QVector>
 #include <QPair>
 #include <QRandomGenerator>
+#include <QDebug>
 #include "animalEnum.h"
 
 class DiceGenerator
@@ -22,8 +23,9 @@ public:
     }
     void ThrowDice()
     {
-        num1 = QRandomGenerator::global()->bounded(1, 13);
-        num2 = QRandomGenerator::global()->bounded(1, 13);
+        num1 = QRandomGenerator::global()->bounded(0, 12);
+        num2 = QRandomGenerator::global()->bounded(0, 12);
+        qDebug() << "DiceGenerator: " << num1 << ' ' << num2;
     }
     QPair<animalEnum, animalEnum> GetResult()
     {
