@@ -180,7 +180,7 @@ void Player::Exchange(actionEnum action)
     if(result)
     {
         update();
-        qDebug() << "signal was sent"; // when goat is changed to dog, widget isn't repainted
+        qDebug() << "signal was sent";
     }
 }
 bool Player::IsWin() const
