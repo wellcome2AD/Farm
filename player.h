@@ -34,11 +34,7 @@ public:
     void Exchange(actionEnum action);
     bool IsWin() const;
 
-    int GetDucks()  const;
-    int GetGoats()  const;
-    int GetPigs()   const;
-    int GetHorses() const;
-    int GetCows()   const;
+    const QMap<animalEnum, int>& GetAnimals();
     bool GetAntyfoxDog()  const;
     bool GetAntybearDog() const;
     void update();

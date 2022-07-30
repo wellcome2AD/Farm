@@ -2,8 +2,6 @@
 #define PLAYERWIDGET_H
 
 #include <QWidget>
-#include <QPair>
-#include <QBoxLayout>
 #include <QPaintEvent>
 #include "player.h"
 #include "orientationOfMapEnum.h"
