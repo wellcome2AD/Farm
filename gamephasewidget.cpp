@@ -78,3 +78,7 @@ void GamePhaseWidget::NextPhase()
         QTimer::singleShot(2000, [this]{ labelFadeAnimation(dice1, 1.0, 0.0, 500), labelFadeAnimation(dice2, 1.0, 0.0, 500); });
     }
 }
+size_t GamePhaseWidget::GetCurrentPhase()
+{
+    return current_phase;
+}

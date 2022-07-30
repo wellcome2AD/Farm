@@ -30,6 +30,7 @@ public:
     GameInterface(QWidget *parent = nullptr);
     ~GameInterface();
     void StartGame();
-    const Game& GetGame() const;
+    const Player* GetCurrentPlayer() const;
+    size_t GetCurrentPhase() const;
 };
 #endif // GAMEINTERFACE_H

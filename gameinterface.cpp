@@ -185,7 +185,11 @@ void GameInterface::moveEvent(QMoveEvent* event)
 {
     game_phase->move(event->pos());
 }
-const Game& GameInterface::GetGame() const
+const Player* GameInterface::GetCurrentPlayer() const
 {
-  return game;
+  return game.GetCurrentPlayer();
+}
+size_t GameInterface::GetCurrentPhase() const
+{
+  return game_phase->GetCurrentPhase();
 }

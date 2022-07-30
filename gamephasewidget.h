@@ -17,6 +17,7 @@ private:
 public:
     explicit GamePhaseWidget(QWidget *parent = nullptr);
     void NextPhase();
+    size_t GetCurrentPhase();
 };
 
 #endif // GAMEPHASEWIDGET_H
