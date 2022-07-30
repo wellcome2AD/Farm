@@ -178,11 +178,6 @@ void GameInterface::onNextButtonClicked()
     {
         qDebug() << "turn " << game.GetOrder() << " was done";
         game.NextTurn();
-        QMessageBox m(this);
-        m.setWindowTitle("Next turn");
-        QString string = "Player's " + QString::number(game.GetOrder()) + " turn";
-        m.setText(string);
-        m.exec();
         StartGame();
     }
 }
