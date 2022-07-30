@@ -85,7 +85,7 @@ void GameInterface::StartGame()
         return;
     }
     currentPlayer->FirstStage();
-    QTimer::singleShot(4000, [this](){ game_phase->NextPhase(), setDisabledNextButton(false); });
+    QTimer::singleShot(3500, [this, currentPlayer](){ game_phase->NextPhase(), setDisabledNextButton(false), currentPlayer->update(); });
 }
 void GameInterface::setDisabledNextButton(bool is_disabled)
 {
