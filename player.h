@@ -2,7 +2,6 @@
 #define PLAYER_H
 
 #include <QObject>
-#include <QPair>
 #include <QMap>
 #include "actionEnum.h"
 #include "animalEnum.h"
