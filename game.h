@@ -6,7 +6,7 @@
 
 class Game
 {
-    size_t order = 0;
+    size_t order;
     QVector<Player*> players;
 public:
     Game(int number_of_players);
